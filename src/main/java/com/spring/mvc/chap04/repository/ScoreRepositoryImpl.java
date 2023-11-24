@@ -2,12 +2,15 @@ package com.spring.mvc.chap04.repository;
 
 import com.spring.mvc.chap04.entity.Grade;
 import com.spring.mvc.chap04.entity.Score;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
+@Repository
 public class ScoreRepositoryImpl implements ScoreRepository{
 
     // 인메모리 저장공간 (해시맵)
