@@ -67,6 +67,13 @@ public class Score {
         this.math = score.getMath();
     }
 
+    public void changeScore(ScoreRequestDTO dto) {
+        this.kor = dto.getKor();
+        this.eng = dto.getEng();
+        this.math = dto.getMath();
+        update();
+    }
+
 //    public void getNewName() {
 //        String first = String.valueOf(this.name.charAt(0));
 //        StringBuilder newName = new StringBuilder();

@@ -126,33 +126,59 @@ public class ScoreController {
     public String Detail(int stuNum, Model model) {
         System.out.println("/score/detail GET !!");
 
-        Score score = repository.findOne(stuNum);
-
-        model.addAttribute("s", score);
+        retrieve(stuNum, model);
 
         return "chap04/score-detail";
     }
 
-    @GetMapping("/modify")
-    public String Modify(int stuNum, Model model) {
-
+    private void retrieve(int stuNum, Model model) {
         Score score = repository.findOne(stuNum);
-
         model.addAttribute("s", score);
+    }
 
+//    @GetMapping("/modify")
+//    public String Modify(int stuNum, Model model) {
+//
+//        Score score = repository.findOne(stuNum);
+//
+//        model.addAttribute("s", score);
+//
+//        return "chap04/score-modify";
+//    }
+//
+//    @GetMapping("/update")
+//    public String Update(int stuNum, int kor, int eng, int math, Model model) {
+//
+//        repository.update(stuNum, kor, eng, math);
+//
+//        Score score = repository.findOne(stuNum);
+//        score.update();
+//
+//        model.addAttribute("s", score);
+//
+//        return "chap04/score-detail";
+//    }
+
+    // 5. 수정 입력 폼을 열어주는 요청
+    // /score/modify : GET
+    @GetMapping("modify")
+    public String modify(int stuNum, Model model) {
+        System.out.println("/score/modify GET!!");
+        retrieve(stuNum, model);
         return "chap04/score-modify";
     }
 
-    @GetMapping("/update")
-    public String Update(int stuNum, int kor, int eng, int math, Model model) {
-
-        repository.update(stuNum, kor, eng, math);
-
+    // 6. 수정 처리 요청
+    // /score/modify : POST
+    @PostMapping("modify")
+    public String modify(int stuNum, ScoreRequestDTO dto) {
+        System.out.println("/score/modify POST!!");
+        // 수정의 흐름
+        // 클라이언트가 수정할 데이터를 보냄
+        // -> 서버에 저장되어 있는 기존데이터를 조회해서 수행한다.
         Score score = repository.findOne(stuNum);
-        score.update();
+        score.changeScore(dto);
 
-        model.addAttribute("s", score);
-
-        return "chap04/score-detail";
+        return "redirect:/score/detail?stuNum=" + stuNum;
     }
 }
