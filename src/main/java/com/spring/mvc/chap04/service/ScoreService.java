@@ -45,6 +45,7 @@ public class ScoreService {
 
     // 삭제 중간처리
     public boolean deleteScore(int stuNum) {
+
         return repository.delete(stuNum);
     }
 
