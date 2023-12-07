@@ -4,6 +4,8 @@ import com.spring.mvc.chap05.dto.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import lombok.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 @Setter @Getter
@@ -29,6 +31,12 @@ public class Board {
     public Board(BoardWriteRequestDTO dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
+        this.regDateTime = LocalDateTime.now();
+    }
+
+    public Board(ResultSet rs) throws SQLException {
+        this.title = rs.getString("title");
+        this.content = rs.getString("content");
         this.regDateTime = LocalDateTime.now();
     }
 
