@@ -2,6 +2,7 @@ package com.spring.mvc.chap05.controller;
 
 import com.spring.mvc.chap05.dto.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
+import com.spring.mvc.chap05.repository.BoardMapper;
 import com.spring.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -58,7 +59,9 @@ public class BoardController {
     @GetMapping("/detail")
     public String detail(int bno, Model model) {
         System.out.println("/board/detail : GET");
+
         model.addAttribute("b", boardService.getDetail(bno));
+
         return "chap05/detail";
     }
 }
