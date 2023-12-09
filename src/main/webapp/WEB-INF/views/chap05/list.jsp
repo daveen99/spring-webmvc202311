@@ -65,6 +65,14 @@
 
     </div>
 
+    <ul style="display: flex; padding-right: 15px; font-size: 3em">
+        <li><a href="/board/list?pageNo=1">1</a></li>
+        <li><a href="/board/list?pageNo=2">2</a></li>
+        <li><a href="/board/list?pageNo=3">3</a></li>
+        <li><a href="/board/list?pageNo=4">4</a></li>
+        <li><a href="/board/list?pageNo=5">5</a></li>
+    </ul>
+
 </div>
 
 <!-- 모달 창 -->

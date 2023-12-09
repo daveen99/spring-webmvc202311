@@ -1,5 +1,6 @@
 package com.spring.mvc.chap05.service;
 
+import com.spring.mvc.chap05.common.Page;
 import com.spring.mvc.chap05.dto.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
@@ -22,8 +23,8 @@ public class BoardService {
     private final BoardMapper boardRepository;
 
     // 목록 조회 중간처리
-    public List<BoardListResponseDTO> getList() {
-        return boardRepository.findAll()
+    public List<BoardListResponseDTO> getList(Page page) {
+        return boardRepository.findAll(page)
                 .stream()
                 .map(BoardListResponseDTO::new)
                 .collect(Collectors.toList())
