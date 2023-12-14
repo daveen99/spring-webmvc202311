@@ -74,11 +74,13 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination pagination-lg pagination-custom">
 
-
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${1}"><<</a>
+                </li>
                 <c:if test="${maker.prev}">
                     <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}">prev</a>
                     </li>
                 </c:if>
+
 
                 <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1">
                     <li data-page-num="${i}" class="page-item">
@@ -90,6 +92,8 @@
                 <c:if test="${maker.next}">
                     <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}">next</a></li>
                 </c:if>
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}">>></a></li>
+
 
             </ul>
         </nav>
