@@ -23,4 +23,7 @@ public interface BoardMapper {
     // 조회수 상승
     // default와 {}를 걸어놓으면 강제 오버라이드가 요구되지않는다.
     boolean updateViewCount(int boardNo);
+
+    // 총 게시물 수 구하기
+    int count();
 }

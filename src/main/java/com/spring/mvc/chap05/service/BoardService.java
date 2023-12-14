@@ -55,4 +55,7 @@ public class BoardService {
         boardRepository.updateViewCount(boardNo);
     }
 
+    public int getCount() {
+        return boardRepository.count();
+    }
 }
