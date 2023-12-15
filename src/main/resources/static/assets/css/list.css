@@ -241,6 +241,12 @@
     color: #fff !important;
 }
 
+.amount li.active a,
+.amount li:hover a {
+    background: #333 !important;
+    color: #fff !important;
+}
+
 /* 검색창 */
 .top-section {
     display: flex;
@@ -262,4 +268,8 @@
 }
 .top-section .search form input[name=keyword] {
     flex: 3;
+}
+
+.amount {
+    display: flex;
 }

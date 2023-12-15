@@ -23,9 +23,11 @@ public class BoardController {
 
     // 1. 목록 조회 요청 ("/board/list" : GET)
     @GetMapping("/list")
-    public String List(@ModelAttribute("s") Search page, Model model) {
+    public String List(@ModelAttribute("s") Search page, @RequestParam(name = "amt", defaultValue = "6") int amt, Model model) {
         System.out.println("/board/list: GET!");
         System.out.println(page);
+        page.setAmount(amt);
+
         List<BoardListResponseDTO> dtoList = boardService.getList(page);
 
         // 페이징 계산 알고리즘 적용

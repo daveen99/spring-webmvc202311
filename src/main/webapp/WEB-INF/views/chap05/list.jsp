@@ -57,11 +57,11 @@
             </form>
         </div>
 
-        <div class="amount">
-            <a href="#">6</a>
-            <a href="#">18</a>
-            <a href="#">30</a>
-        </div>
+        <ul class="amount page-item">
+            <li class="page-item" data-amt-btn="6"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=6" class="page-link">6</a></li>
+            <li class="page-item" data-amt-btn="18"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=18" class="page-link">18</a></li>
+            <li class="page-item" data-amt-btn="30"> <a href="list?type=${s.type}&keyword=${s.keyword}&amt=30" class="page-link">30</a></li>
+        </ul>
 
     </div>
 
@@ -106,27 +106,27 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination pagination-lg pagination-custom">
                 <c:if test="${maker.page.pageNo != 1}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${1}&type=${s.type}&keyword=${s.keyword}">&lt;&lt;</a>
+                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">&lt;&lt;</a>
                     </li>
                 </c:if>
                 <c:if test="${maker.prev}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}">prev</a>
+                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">prev</a>
                     </li>
                 </c:if>
 
 
                 <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1">
                     <li data-page-num="${i}" class="page-item">
-                        <a class="page-link" href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}">${i}</a>
+                        <a class="page-link" href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">${i}</a>
                     </li>
                 </c:forEach>
 
 
                 <c:if test="${maker.next}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}">next</a></li>
+                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">next</a></li>
                 </c:if>
                 <c:if test="${maker.page.pageNo != maker.finalPage}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}">&gt;&gt;</a></li>
+                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">&gt;&gt;</a></li>
                 </c:if>
 
             </ul>
@@ -188,7 +188,7 @@
             // 요청 보내기
             window.location.href = '/board/detail?bno=' + bno
                 + '&pageNo=${s.pageNo}' + '&type=${s.type}'
-                + '&keyword=${s.keyword}';
+                + '&keyword=${s.keyword}' + '&amt=${maker.page.amount}';
         }
     });
 
@@ -252,6 +252,7 @@
 
         // 현재 서버에서 내려준 페이지 번호
         const currPage = '${maker.page.pageNo}';
+        const currAmount = '${maker.page.amount}';
         // console.log(currPage);
 
         /*
@@ -259,11 +260,19 @@
            현재 페이지번호와 일치하는 li를 찾은 다음 active 클래스 붙이기
          */
         const $ul = document.querySelector('.pagination');
+        const $div = document.querySelector('.amount');
         const $liList = [...$ul.children];
+        const $aList = [...$div.children];
+
 
         $liList.forEach($li => {
             if (currPage === $li.dataset.pageNum) {
                 $li.classList.add('active');
+            }
+        });
+        $aList.forEach($a => {
+            if (currAmount === $a.dataset.amtBtn) {
+                $a.classList.add('active');
             }
         });
 

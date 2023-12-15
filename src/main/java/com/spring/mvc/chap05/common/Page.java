@@ -14,6 +14,9 @@ public class Page {
         this.pageNo = 1;
         this.amount = 6;
     }
+    public Page(int amount) {
+        this.amount = amount;
+    }
 
     /*
         만약에 한페이지에 게시물을 6개씩 부린다고 가정하면

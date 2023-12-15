@@ -20,6 +20,9 @@ public class PageMaker {
     // 총 게시물 수
     private int totalCount;
 
+    // 한 화면에 보여질 페이지 수
+    private static int PAGE_COUNT = 10;
+
     public PageMaker(Page page, int totalCount)  {
         this.page = page;
         this.totalCount = totalCount;
@@ -27,8 +30,6 @@ public class PageMaker {
         makePageInfo();
     }
 
-    // 한 화면에 보여질 페이지 수
-    private static final int PAGE_COUNT = 10;
 
     // 페이지 생성에 필요한 데이터를 만드는 알고리즘
     private void makePageInfo() {
