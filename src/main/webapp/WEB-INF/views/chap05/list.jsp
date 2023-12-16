@@ -57,11 +57,11 @@
             </form>
         </div>
 
-        <ul class="amount page-item">
-            <li class="page-item" data-amt-btn="6"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=6" class="page-link">6</a></li>
-            <li class="page-item" data-amt-btn="18"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=18" class="page-link">18</a></li>
-            <li class="page-item" data-amt-btn="30"> <a href="list?type=${s.type}&keyword=${s.keyword}&amt=30" class="page-link">30</a></li>
-        </ul>
+        <div class="amount">
+            <div data-amt-btn="6"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=6">6</a></div>
+            <div data-amt-btn="18"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=18">18</a></div>
+            <div data-amt-btn="30"> <a href="list?type=${s.type}&keyword=${s.keyword}&amt=30">30</a></div>
+        </div>
 
     </div>
 
