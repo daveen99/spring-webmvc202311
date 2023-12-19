@@ -1,5 +1,6 @@
 package com.spring.mvc.chap05.dto.response;
 
+import com.spring.mvc.chap05.common.PageMaker;
 import lombok.*;
 
 import java.util.List;
@@ -11,5 +12,6 @@ import java.util.List;
 public class ReplyListResponseDTO {
 
     private int count; // 총 댓글 수
+    private PageMaker pageInfo;
     private List<ReplyDetailResponseDTO> replies; // 실제 댓글 리스트
 }
