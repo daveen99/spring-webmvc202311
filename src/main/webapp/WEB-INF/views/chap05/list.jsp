@@ -7,27 +7,16 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <%@include file="../include/static-head.jsp" %>
 
-    <!-- reset -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-
-    <!-- fontawesome css: https://fontawesome.com -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-
-
-    <!-- bootstrap css -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/list.css">
 
 </head>
 
 <body>
 
+
+<%@include file="../include/header.jsp" %>
 <div id="wrap">
 
     <div class="main-title-wrapper">
@@ -60,11 +49,10 @@
         <div class="amount">
             <div data-amt-btn="6"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=6">6</a></div>
             <div data-amt-btn="18"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=18">18</a></div>
-            <div data-amt-btn="30"> <a href="list?type=${s.type}&keyword=${s.keyword}&amt=30">30</a></div>
+            <div data-amt-btn="30"><a href="list?type=${s.type}&keyword=${s.keyword}&amt=30">30</a></div>
         </div>
 
     </div>
-
 
 
     <div class="card-container">
@@ -106,27 +94,34 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination pagination-lg pagination-custom">
                 <c:if test="${maker.page.pageNo != 1}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">&lt;&lt;</a>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">&lt;&lt;</a>
                     </li>
                 </c:if>
                 <c:if test="${maker.prev}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">prev</a>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">prev</a>
                     </li>
                 </c:if>
 
 
                 <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1">
                     <li data-page-num="${i}" class="page-item">
-                        <a class="page-link" href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">${i}</a>
+                        <a class="page-link"
+                           href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">${i}</a>
                     </li>
                 </c:forEach>
 
 
                 <c:if test="${maker.next}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">next</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">next</a>
+                    </li>
                 </c:if>
                 <c:if test="${maker.page.pageNo != maker.finalPage}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">&gt;&gt;</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}&amt=${maker.page.amount}">&gt;&gt;</a>
+                    </li>
                 </c:if>
 
             </ul>
