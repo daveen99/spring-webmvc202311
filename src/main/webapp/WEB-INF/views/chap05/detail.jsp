@@ -117,7 +117,7 @@
     <div class="buttons">
         <button class="list-btn" type="button" onclick="window.location.href='/board/list'">목록</button>
     </div>
-
+<%----%>
 </div>
 </body>
 </html>
