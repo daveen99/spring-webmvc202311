@@ -144,7 +144,7 @@
 
     <div id="replies" class="row">
         <div class="offset-md-1 col-md-10">
-            <!-- 댓글 쓰기 영역 -->
+            <!-- 댓글 쓰기 영역 _ form태그에서는 비동기 통신이 불가능하다 -->
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -343,6 +343,71 @@
 
     }
 
+    // 댓글 등록 처리 핸들러 등록 함수
+    function makeReplyPostClickEvent() {
+        const $addBtn = document.getElementById('replyAddBtn');
+
+        $addBtn.onclick = e => {
+
+            console.log('add clicked!!')
+            const $replyText = document.getElementById('newReplyText');
+            const $replyWriter = document.getElementById('newReplyWriter');
+
+            // console.log($replyText.value);
+            // console.log($replyWriter.value);
+
+            const textVal = $replyText.value.trim();
+            const writeVal = $replyWriter.value.trim();
+
+            // 사용자 입력값 검증
+            if (textVal === '') {
+                alert('댓글 내용은 필수값입니다.');
+                return;
+            } else if (writeVal === '') {
+                alert('댓글 작성자는 필수값입니다.')
+                return;
+            } else if (writeVal.length < 2 || writeVal.length > 8) {
+                alert('댓글 작성자는 2글자에서 8글자 사이로 작성하세요');
+                return;
+            }
+
+            const payload = {
+              text : $replyText.value,
+              author  : $replyWriter.value,
+              bno : bno
+            };
+
+            // GET 방식을 제외한 요청의 정보 만들기
+            const requestInfo = {
+              method : 'POST',
+              headers : {
+                  'content-type' : 'application/json'
+              },
+              body : JSON.stringify(payload)
+            };
+            // 서버에 POST 요청 보내기
+            fetch(URL, requestInfo)
+                .then(res => {
+                    if (res.status === 200) {
+                        alert('댓글이 등록되었습니다.');
+                        return res.json();
+                    } else {
+                        alert('댓글 등록에 실패했습니다.');
+                        return res.text();
+                    }
+                })
+                .then(responseData => {
+                    //console.log(responseData);
+                    // 입력창 비우고 새로운 목록 다시 렌더링
+                    $replyWriter.value = '';
+                    $replyText.value = '';
+
+                    fetchGetReplies(responseData.pageInfo.finalPage);
+                });
+        };
+    }
+
+
     //========== 메인 실행부 ==========//
 
     // 즉시 실행함수
@@ -351,8 +416,11 @@
         // 댓글 서버에서 불러오기
         fetchGetReplies();
 
-        // 페이지 번호 클릭 이벤트 핸들러처리
+        // 페이지 번호 클릭 이벤트 핸들러 처리
         makePageButtonClickEvent();
+
+        // 댓글 등록 클릭 이벤트 핸들러 처리
+        makeReplyPostClickEvent();
 
     })();
 
