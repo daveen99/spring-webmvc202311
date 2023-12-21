@@ -1,6 +1,7 @@
 package com.spring.mvc.chap05.api;
 
 import com.spring.mvc.chap05.common.Page;
+import com.spring.mvc.chap05.dto.request.ReplyModifyRequestDTO;
 import com.spring.mvc.chap05.dto.request.ReplyPostRequestDTO;
 import com.spring.mvc.chap05.dto.response.ReplyDetailResponseDTO;
 import com.spring.mvc.chap05.dto.response.ReplyListResponseDTO;
@@ -26,6 +27,9 @@ import java.util.List;
  *
  * => /replies/17            (x) - 단일조회
  * => /replies     : GET 방식 (o) - 단일조회
+ *
+ * => /replies/delte?replyNo=3  (x)
+ * => /replies/3      : DELETE 방식  (o)
  */
 
 
@@ -80,6 +84,54 @@ public class ReplyApiController {
             return ResponseEntity.ok().body(responseDTO);
         } catch (SQLException e) {
             log.warn("500 status code response!! caused by: {}", e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    // 댓글 삭제 요청 처리
+    @DeleteMapping("/{replyNo}")
+    public ResponseEntity<?> remove(@PathVariable Long replyNo) {
+
+        if (replyNo == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("댓글 번호를 적어주셔야지;");
+        }
+        log.info("/api/v1/replies/{} : DELETE", replyNo);
+
+        try {
+            ReplyListResponseDTO responseDTO = replyService.delete(replyNo);
+
+            return ResponseEntity
+                    .ok()
+                    .body(responseDTO);
+
+        } catch (Exception e) {
+            return ResponseEntity
+                    .internalServerError()
+                    .body(e.getMessage());
+        }
+    }
+
+    // 댓글 수정 요청 처리
+    @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH})
+    public ResponseEntity<?> update(
+            @Validated @RequestBody ReplyModifyRequestDTO dto
+            , BindingResult result
+    ) {
+        if (result.hasErrors()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(result.toString());
+        }
+        log.info("/api/v1/replies PUT/PATCH");
+        log.debug("parameter: {}", dto);
+
+        try {
+            ReplyListResponseDTO responseDTO = replyService.modify(dto);
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            log.warn("internal server error!! casues by : {}", e.getMessage());
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
