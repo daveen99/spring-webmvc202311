@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/members")
@@ -67,6 +69,7 @@ public class MemberController {
             // 왜냐면 리다이렉트는 요청이 2번들어가서 첫번째요청시 보관한 데이터가 소실된다.
             , RedirectAttributes ra
             , HttpServletResponse response
+            , HttpServletRequest request
     ) {
 
         log.info("/members/sign-in POST !");
@@ -79,7 +82,11 @@ public class MemberController {
 
         if (result == LoginResult.SUCCESS) { // 로그인 성공시
 
-            makeLoginCookie(dto, response);
+            // makeLoginCookie(dto, response);  // 쿠키로 로그인 유지
+
+            // 세션으로 로그인 유지
+            memberService.maintainLoginState(request.getSession(), dto.getAccount());
+
 
             return "redirect:/";
         }
@@ -96,6 +103,24 @@ public class MemberController {
 
         // 쿠키를 클라이언트에게 전송 (Response객체 필요)
         response.addCookie(cookie);
+    }
+
+    // 로그아웃 요청 처리
+    @GetMapping("/sign-out")
+    public String signOut(
+            // HttpServletRequest request
+            HttpSession session
+    ) {
+        // 세션 얻기
+//        HttpSession session = request.getSession();
+
+        // 세션에서 로그인 정보 기록 삭제
+        session.removeAttribute("login");
+
+        // 세션을 초기화(RESET)
+        session.invalidate();
+
+        return "redirect:/";
     }
 
 }
