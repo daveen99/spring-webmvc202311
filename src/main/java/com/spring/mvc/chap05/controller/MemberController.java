@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
+
 @Controller
 @RequestMapping("/members")
 @Slf4j
@@ -101,7 +103,7 @@ public class MemberController {
 
     private static void makeLoginCookie(LoginRequestDTO dto, HttpServletResponse response) {
         // 쿠키에 로그인 기록을 저장
-        Cookie cookie = new Cookie("login", dto.getAccount());
+        Cookie cookie = new Cookie(LOGIN_KEY, dto.getAccount());
         // 쿠키 정보 세팅
         cookie.setPath("/"); // 이 쿠키는 모든경로에서 들고다녀야 함
         cookie.setMaxAge(60); // 쿠키 수명 설정
@@ -120,7 +122,7 @@ public class MemberController {
 //        HttpSession session = request.getSession();
 
         // 세션에서 로그인 정보 기록 삭제
-        session.removeAttribute("login");
+        session.removeAttribute(LOGIN_KEY);
 
         // 세션을 초기화(RESET)
         session.invalidate();

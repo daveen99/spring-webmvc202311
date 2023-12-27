@@ -11,26 +11,28 @@ import javax.servlet.http.HttpSession;
 
 import static com.spring.mvc.util.LoginUtils.*;
 
+/*
+    - 인터셉터: 컨트롤러의 요청이 들어가기 전/후에
+              공통적으로 처리할 코드나 검사할 일들을 정의해 놓는 클래스
+ */
+
 @Configuration
 @Slf4j
-public class AfterLoginInterceptor implements HandlerInterceptor {
-
-    // 로그인 한 이후 비회원만 접근할 수 있는 페이지 접근 차단(로그인 화면)
+public class BoardInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(
             HttpServletRequest request
             , HttpServletResponse response
             , Object handler) throws Exception {
-
-        log.info("after login interceptor execute!!");
-
         HttpSession session = request.getSession();
-
-        if (isLogin(session)) {
-            response.sendRedirect("/");
-            return false;  // back off
+        // 로그인을 안했으면 글쓰기, 글수정, 글삭제 요청을 튕겨낼 것
+        if (!isLogin(session)){
+            log.info("This request ({}) is denied!", request.getRequestURI());
+            response.sendRedirect("/members/sign-in");
+            return false;
         }
-        return true;  // come in
+
+        return true;
     }
 }
