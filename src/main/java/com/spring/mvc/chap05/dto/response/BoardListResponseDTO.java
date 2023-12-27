@@ -18,6 +18,7 @@ public class BoardListResponseDTO {
     private final String shortContent; // 30글자 이상이면 잘라내기
     private final String date; // 날짜 패턴 yyuy-mm-dd HH:mm
     private final int viewCount;
+    private final String account;
 
     public BoardListResponseDTO(Board board) {
         this.boardNo = board.getBoardNo();
@@ -25,6 +26,7 @@ public class BoardListResponseDTO {
         this.shortContent = makeShortContent(board.getContent());
         this.date = makePrettierDateString(board.getRegDateTime());
         this.viewCount = board.getViewCount();
+        this.account = board.getAccount();
     }
 
     static String makePrettierDateString(LocalDateTime regDateTime) {

@@ -5,9 +5,11 @@
 <!-- namespace에는 이 파일과 연동될 인터페이스의 전체경로(패키지명 포함 클래스명)를 적는다 -->
 <mapper namespace="com.spring.mvc.chap05.repository.BoardMapper">
     <select id="findAll" resultType="board">
-        SELECT * FROM tbl_board
+        SELECT
+            *
+        FROM tbl_board
 
-        <!-- 동적SQL -->
+        <!-- 동적 SQL -->
         <if test="type == 'title'">
             WHERE title LIKE CONCAT('%', #{keyword}, '%')
         </if>
@@ -28,8 +30,8 @@
     </select>
     <insert id="save">
         INSERT INTO tbl_board
-        (title, content)
-        VALUES (#{title}, #{content})
+        (title, content, account)
+        VALUES (#{title}, #{content}, #{account})
     </insert>
     <delete id="deleteByNo">
         DELETE FROM tbl_board
