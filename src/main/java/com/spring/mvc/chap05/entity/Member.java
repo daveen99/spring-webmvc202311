@@ -30,4 +30,6 @@ public class Member {
     private String email;
     private Auth auth;
     private LocalDateTime regDate;
+    private String sessionID;
+    private LocalDateTime limitTime;
 }
