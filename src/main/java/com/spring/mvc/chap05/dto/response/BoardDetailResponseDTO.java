@@ -11,12 +11,14 @@ import lombok.ToString;
 public class BoardDetailResponseDTO {
 
     private final int boardNo;
+    private final String writer;
     private final String title;
     private final String content;
     private final String date;
 
     public BoardDetailResponseDTO(Board board) {
         this.boardNo = board.getBoardNo();
+        this.writer = board.getWriter();
         this.title = board.getTitle();
         this.content = board.getContent();
         this.date = BoardListResponseDTO.makePrettierDateString(board.getRegDateTime());
