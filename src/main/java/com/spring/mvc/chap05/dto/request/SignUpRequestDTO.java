@@ -3,6 +3,7 @@ package com.spring.mvc.chap05.dto.request;
 import com.spring.mvc.chap05.entity.Member;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -29,6 +30,9 @@ public class SignUpRequestDTO {
     @NotBlank
     @Email
     private String email;
+
+    // 프로필 사진
+    private MultipartFile profileImage;
 
     // 엔터티로 변환하는 유틸메서드
     public Member toEntity(PasswordEncoder encoder) {

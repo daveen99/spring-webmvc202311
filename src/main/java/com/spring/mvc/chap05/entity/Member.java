@@ -32,4 +32,7 @@ public class Member {
     private LocalDateTime regDate;
     private String sessionID;
     private LocalDateTime limitTime;
+
+    @Setter
+    private String profileImage; // 프로필사진 이미지 경로
 }

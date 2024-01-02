@@ -6,29 +6,30 @@
 
     <insert id="save">
         INSERT INTO tbl_member
-            (account, password, name, email)
+        (account, password, name, email, profile_image)
         VALUES
-            (#{account}, #{password}, #{name}, #{email})
+        (#{account}, #{password}, #{name}, #{email}, #{profileImage})
     </insert>
 
     <select id="findMember" resultType="member">
         SELECT
-            account, password, name, email, auth, reg_date
+        account, password, name,
+        email, auth, reg_date, profile_image
         FROM tbl_member
         WHERE account = #{account}
     </select>
 
     <select id="isDuplicate" resultType="boolean">
+
         SELECT COUNT(*)
         FROM tbl_member
-
-        <!-- 동적 SQL -->
-        <if test="type== 'account'">
+        <if test="type == 'account'">
             WHERE account = #{keyword}
         </if>
-        <if test="type== 'email'">
+        <if test="type == 'email'">
             WHERE email = #{keyword}
         </if>
+
     </select>
 
     <update id="saveAutoLogin">
@@ -39,9 +40,10 @@
 
     <select id="findMemberByCookie" resultType="member">
         SELECT
-            account, name, email, auth, limit_time
+        account, name, email, auth, limit_time
         FROM tbl_member
         WHERE session_id = #{sessionId}
     </select>
+
 
 </mapper>

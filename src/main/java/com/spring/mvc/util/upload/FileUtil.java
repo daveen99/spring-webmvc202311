@@ -29,6 +29,9 @@ public class FileUtil {
         // 이 파일을 날짜별로 관리하기 위해 날짜별 폴더를 생성
         String newUploadPath = makeDateFormatDirectory(rootPath);
 
+        // 파일의 전체 경로를 생성
+        String fullPath = newUploadPath + "/" + newFileName;
+
         // 파일 업로드 수행
         try {
             file.transferTo(new File(newUploadPath, newFileName));
@@ -36,7 +39,9 @@ public class FileUtil {
             e.printStackTrace();
         }
 
-        return "";
+        // full-path: D:/upload/2024/01/02/!@!@#!#@ 이미지.jpg
+        // return-path: /2024/01/02/!@!@#!#@ 이미지.jpg
+        return fullPath.substring(rootPath.length());
     }
 
     /**
