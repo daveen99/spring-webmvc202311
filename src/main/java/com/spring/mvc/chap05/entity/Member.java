@@ -32,7 +32,11 @@ public class Member {
     private LocalDateTime regDate;
     private String sessionID;
     private LocalDateTime limitTime;
-
     @Setter
     private String profileImage; // 프로필사진 이미지 경로
+    private LoginMethod loginMethod; // 로그인 방식(카카오,일반)
+
+    public enum LoginMethod {
+        COMMON, KAKAO, GOOGLE, NAVER
+    }
 }
